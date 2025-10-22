@@ -14,6 +14,7 @@ stages:
 - template: ${{ parameters.publishConfigTemplatePath }}
   parameters:
     sourceBuildPipelineRunId: ${{ parameters.sourceBuildPipelineRunId }}
+    publishRepoPrefix: "test/"
     stagesTemplate: /eng/pipelines/stages/build-test-publish-repo.yml@self
     stagesTemplateParameters:
       versionsRepoRef: VersionsRepo
