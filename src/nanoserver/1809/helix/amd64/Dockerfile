@@ -46,6 +46,8 @@ RUN pwsh -Command " `
         Remove-Item -Recurse -Force $pythonTemp; `
         Remove-Item -Force $pythonZip;"
 
+ARG PIP_INDEX_URL=https://pypi.org/simple
+
 # Install Helix
 RUN pwsh -Command " `
         $helixTemp = 'C:\helixtmp'; `
@@ -63,7 +65,7 @@ RUN pwsh -Command " `
         } `
         Get-ChildItem -Path $helixTemp -Filter 'helix_scripts-*-py3-none-any.whl' | `
             ForEach-Object { `
-                & pip install $_.FullName --no-cache-dir --no-input --index-url https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-public-pypi/pypi/simple; `
+                & pip install $_.FullName --no-cache-dir; `
                 if ($LASTEXITCODE -ne 0) { `
                     echo \"Failed to install Helix script: $($_.Name)\"; `
                     exit 1; `
